@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eagle Online Trading Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--navy:#0b1628;--navy2:#0f2040;--navy3:#162a4a;--gold:#c9a84c;--gold2:#e8c76a;--gold3:#f5e199;--white:#f0ede6;--muted:#8fa3be;--border:#1e3358}
+  html{scroll-behavior:smooth}
+  body{background:var(--navy);color:var(--white);font-family:'Raleway',sans-serif;overflow-x:hidden}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;background:rgba(11,22,40,0.95);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}
+  .nav-brand{display:flex;align-items:center;gap:12px}
+  .nav-title{font-family:'Cinzel',serif;font-size:13px;line-height:1.3;letter-spacing:1px;color:var(--gold2)}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.5px;transition:color .2s}
+  .nav-links a:hover{color:var(--gold2)}
+  .nav-cta{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-family:'Cinzel',serif;font-size:12px;font-weight:700;padding:10px 22px;border-radius:2px;text-decoration:none;letter-spacing:1px;border:none;cursor:pointer}
+  .ticker{background:rgba(201,168,76,0.06);border-top:1px solid rgba(201,168,76,0.15);border-bottom:1px solid rgba(201,168,76,0.15);padding:10px 0;overflow:hidden;white-space:nowrap;margin-top:72px}
+  .ticker-inner{display:inline-flex;animation:tick 30s linear infinite}
+  @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .ticker-item{padding:0 40px;font-size:12px;color:var(--gold2);letter-spacing:1.5px;font-weight:500}
+  .ticker-item span{color:var(--muted);margin-right:8px}
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:80px 5% 60px;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(201,168,76,0.08) 0%,transparent 70%),var(--navy)}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(30,51,88,0.4) 1px,transparent 1px),linear-gradient(90deg,rgba(30,51,88,0.4) 1px,transparent 1px);background-size:60px 60px}
+  .hero-content{position:relative;z-index:1;max-width:900px;margin:0 auto}
+  .hero-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold2);font-size:11px;letter-spacing:2.5px;font-weight:600;padding:6px 20px;margin-bottom:32px;text-transform:uppercase}
+  .hero-eagle{width:110px;height:110px;filter:drop-shadow(0 0 30px rgba(201,168,76,0.4));margin-bottom:28px}
+  .hero h1{font-family:'Cinzel',serif;font-size:clamp(2.8rem,6vw,5rem);font-weight:700;line-height:1.05;letter-spacing:2px;background:linear-gradient(135deg,var(--gold3) 0%,var(--gold2) 40%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
+  .hero-tagline{font-family:'Cinzel',serif;font-size:clamp(1rem,2.5vw,1.5rem);color:var(--gold2);letter-spacing:1px;margin-bottom:48px}
+  .hero-divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:0 auto 48px}
+  .hero-stats{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;margin-bottom:52px}
+  .stat-num{font-family:'Cinzel',serif;font-size:2.2rem;color:var(--gold2);font-weight:700}
+  .stat-label{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
+  .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-family:'Cinzel',serif;font-size:13px;font-weight:700;padding:16px 40px;border-radius:2px;text-decoration:none;letter-spacing:1.5px;display:inline-block;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 24px rgba(201,168,76,0.25)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(201,168,76,0.35)}
+  .btn-outline{border:1px solid var(--gold);color:var(--gold2);font-family:'Cinzel',serif;font-size:13px;font-weight:600;padding:16px 40px;border-radius:2px;text-decoration:none;letter-spacing:1.5px;display:inline-block;transition:background .2s}
+  .btn-outline:hover{background:rgba(201,168,76,0.08)}
+  section{padding:100px 5%}
+  .section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:600}
+  .section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;line-height:1.15;margin-bottom:16px;color:var(--white)}
+  .section-title span{color:var(--gold2)}
+  .section-desc{color:var(--muted);font-size:1rem;line-height:1.8;max-width:600px}
+  .gold-line{width:60px;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));margin-bottom:24px}
+  .about{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1200px;margin:0 auto}
+  .about-features{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+  .feat-card{background:var(--navy3);border:1px solid var(--border);padding:24px;border-radius:2px;transition:border-color .2s}
+  .feat-card:hover{border-color:var(--gold)}
+  .feat-card h4{font-family:'Cinzel',serif;font-size:13px;color:var(--gold2);margin-bottom:6px;letter-spacing:.5px;margin-top:8px}
+  .feat-card p{font-size:12px;color:var(--muted);line-height:1.6}
+  .about-card{background:var(--navy3);border:1px solid var(--border);padding:40px;border-radius:2px;position:relative;overflow:hidden}
+  .about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+  .about-card-title{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--gold2);margin-bottom:20px}
+  .about-list{list-style:none}
+  .about-list li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--white)}
+  .about-list li:last-child{border-bottom:none}
+  .check{color:var(--gold);font-size:16px;margin-top:1px;flex-shrink:0}
+  .contact-strip{margin-top:28px;padding:20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:2px;text-align:center}
+  .contact-strip p{font-size:12px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+  .contact-strip h3{font-family:'Cinzel',serif;font-size:1.6rem;color:var(--gold2)}
+  .contact-strip span{font-size:12px;color:var(--muted);display:block;margin-top:4px;letter-spacing:2px}
+  .courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px}
+  .course-card{background:var(--navy3);border:1px solid var(--border);border-radius:2px;overflow:hidden;transition:transform .2s,border-color .2s}
+  .course-card:hover{transform:translateY(-4px);border-color:var(--gold)}
+  .course-card-header{padding:24px 28px;background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04));border-bottom:1px solid var(--border)}
+  .course-tag{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);background:var(--gold);display:inline-block;padding:3px 10px;margin-bottom:10px;font-weight:700}
+  .course-card h3{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--white)}
+  .course-list{list-style:none;padding:24px 28px}
+  .course-list li{display:flex;align-items:flex-start;gap:10px;padding:7px 0;font-size:13px;color:var(--muted);border-bottom:1px solid rgba(30,51,88,0.6)}
+  .course-list li:last-child{border-bottom:none}
+  .tick{color:var(--gold);font-size:14px;flex-shrink:0;margin-top:1px}
+  .benefits{background:var(--navy2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;max-width:1200px;margin:0 auto}
+  .benefit-card{background:var(--navy3);border:1px solid var(--border);padding:32px 24px;border-radius:2px;text-align:center;transition:border-color .2s}
+  .benefit-card:hover{border-color:var(--gold);background:rgba(201,168,76,0.04)}
+  .benefit-icon{width:56px;height:56px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:24px}
+  .benefit-card h4{font-family:'Cinzel',serif;font-size:14px;color:var(--gold2);margin-bottom:8px}
+  .benefit-card p{font-size:12px;color:var(--muted);line-height:1.6}
+  .apply{max-width:800px;margin:0 auto;text-align:center}
+  .apply-form{background:var(--navy3);border:1px solid var(--border);border-radius:2px;padding:48px;text-align:left;position:relative;overflow:hidden}
+  .apply-form::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--gold))}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+  .form-group{display:flex;flex-direction:column;gap:6px}
+  .form-group.full{grid-column:1/-1}
+  .form-group label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .form-group input,.form-group select,.form-group textarea{background:rgba(11,22,40,0.8);border:1px solid var(--border);color:var(--white);padding:14px 16px;border-radius:2px;font-family:'Raleway',sans-serif;font-size:14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+  .form-group select{cursor:pointer}
+  .form-group select option{background:var(--navy2)}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+  .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(143,163,190,0.5)}
+  .form-group textarea{resize:vertical;min-height:100px}
+  .form-submit{width:100%;margin-top:28px;padding:18px;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--navy);font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:2px;border:none;border-radius:2px;cursor:pointer;transition:opacity .2s,transform .2s}
+  .form-submit:hover{opacity:.9;transform:translateY(-1px)}
+  .form-submit:disabled{opacity:.55;cursor:not-allowed;transform:none}
+  .form-note{font-size:11px;color:var(--muted);text-align:center;margin-top:12px;letter-spacing:.5px}
+  .notify-box{display:none;margin-top:18px;padding:14px 18px;border-radius:2px;font-size:13px;text-align:center;line-height:1.5}
+  .notify-box.sending{display:block;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);color:var(--gold2)}
+  .notify-box.success{display:block;background:rgba(20,70,40,0.4);border:1px solid rgba(50,180,80,0.3);color:#7de8a0}
+  .notify-box.error{display:block;background:rgba(80,20,20,0.4);border:1px solid rgba(200,60,60,0.3);color:#f09090}
+  .success-view{display:none;text-align:center;padding:48px 20px}
+  .success-icon{width:72px;height:72px;background:rgba(201,168,76,0.1);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:28px}
+  .success-view h3{font-family:'Cinzel',serif;color:var(--gold2);font-size:1.4rem;margin-bottom:10px}
+  .success-view p{color:var(--muted);font-size:14px;line-height:1.7}
+  .success-view .call-link{color:var(--gold2);font-family:'Cinzel',serif;font-size:1.1rem;display:block;margin-top:16px;text-decoration:none}
+  footer{background:var(--navy);border-top:1px solid var(--border);padding:60px 5% 32px}
+  .footer-inner{max-width:1200px;margin:0 auto}
+  .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:60px;margin-bottom:48px}
+  .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .footer-brand-name{font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);line-height:1.3;letter-spacing:.5px}
+  .footer-desc{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px}
+  .footer-contact a{color:var(--gold2);text-decoration:none;font-size:1.1rem;font-family:'Cinzel',serif}
+  .footer-contact p{font-size:12px;color:var(--muted);margin-top:4px;letter-spacing:1px}
+  .footer-col h5{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);letter-spacing:1.5px;margin-bottom:20px;text-transform:uppercase}
+  .footer-col ul{list-style:none}
+  .footer-col ul li{padding:5px 0;font-size:13px;color:var(--muted)}
+  .footer-col ul li::before{content:'→ ';color:var(--gold);font-size:10px}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .footer-bottom p{font-size:11px;color:var(--muted);letter-spacing:.5px}
+  .footer-bottom span{font-size:11px;color:var(--gold);letter-spacing:1px}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  @media(max-width:768px){
+    .nav-links{display:none}
+    .about-inner{grid-template-columns:1fr;gap:40px}
+    .about-features{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    .apply-form{padding:28px 20px}
+    .footer-top{grid-template-columns:1fr}
+    .footer-bottom{flex-direction:column;text-align:center}
+    .hero-stats{gap:1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║         WHATSAPP NOTIFICATION SETUP                  ║
+  ║                                                      ║
+  ║  1. Save +34 644 44 04 44 on WhatsApp               ║
+  ║  2. Send: "I allow callmebot to send me messages"    ║
+  ║  3. You'll get your API key back                     ║
+  ║  4. Paste it below where it says YOUR_API_KEY_HERE   ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+<script>
+  const OWNER_PHONE   = "919036540855";        // 91 = India country code
+  const CALLMEBOT_KEY = "YOUR_API_KEY_HERE";   // ← Paste your CallMeBot API key here
+</script>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <svg width="44" height="44" viewBox="0 0 100 100"><g transform="translate(50,50)"><ellipse cx="0" cy="8" rx="14" ry="20" fill="#c9a84c"/><path d="M0,0 C-15,-10 -40,-5 -45,10 C-35,5 -20,8 0,15 Z" fill="#c9a84c"/><path d="M0,0 C15,-10 40,-5 45,10 C35,5 20,8 0,15 Z" fill="#c9a84c"/><path d="M-30,2 C-38,-2 -45,8 -42,12 C-38,6 -32,6 -26,10 Z" fill="#e8c76a"/><path d="M30,2 C38,-2 45,8 42,12 C38,6 32,6 26,10 Z" fill="#e8c76a"/><circle cx="0" cy="-18" r="10" fill="#c9a84c"/><path d="M5,-18 L14,-14 L8,-20 Z" fill="#e8c76a"/><circle cx="-2" cy="-19" r="2.5" fill="#0b1628"/><circle cx="-2" cy="-19" r="1" fill="#e8c76a"/><rect x="-18" y="22" width="7" height="16" rx="1" fill="#e8c76a" opacity=".9"/><rect x="-8" y="15" width="7" height="23" rx="1" fill="#e8c76a"/><rect x="2" y="10" width="7" height="28" rx="1" fill="#f5e199"/><rect x="12" y="4" width="7" height="34" rx="1" fill="#f5e199"/></g></svg>
+    <div class="nav-title">EAGLE ONLINE<br>TRADING ACADEMY</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#benefits">Benefits</a></li>
+    <li><a href="#apply">Apply</a></li>
+  </ul>
+  <a href="#apply" class="nav-cta">ENROLL NOW</a>
+</nav>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span>NIFTY 50</span>Live Market Analysis</span>
+    <span class="ticker-item"><span>SENSEX</span>Real-time Strategies</span>
+    <span class="ticker-item"><span>FOREX</span>Advanced Techniques</span>
+    <span class="ticker-item"><span>CRYPTO</span>Digital Assets Training</span>
+    <span class="ticker-item"><span>GOLD</span>Commodity Trading</span>
+    <span class="ticker-item"><span>OPTIONS</span>Derivatives Mastery</span>
+    <span class="ticker-item"><span>NIFTY 50</span>Live Market Analysis</span>
+    <span class="ticker-item"><span>SENSEX</span>Real-time Strategies</span>
+    <span class="ticker-item"><span>FOREX</span>Advanced Techniques</span>
+    <span class="ticker-item"><span>CRYPTO</span>Digital Assets Training</span>
+    <span class="ticker-item"><span>GOLD</span>Commodity Trading</span>
+    <span class="ticker-item"><span>OPTIONS</span>Derivatives Mastery</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Premier Trading Institute</div>
+    <svg class="hero-eagle" viewBox="0 0 200 200"><g transform="translate(100,100)"><ellipse cx="0" cy="15" rx="28" ry="40" fill="#c9a84c"/><path d="M0,5 C-30,-20 -80,-10 -90,20 C-70,10 -40,16 0,30 Z" fill="#c9a84c"/><path d="M0,5 C30,-20 80,-10 90,20 C70,10 40,16 0,30 Z" fill="#c9a84c"/><path d="M-55,2 C-72,-8 -88,14 -82,24 C-74,10 -58,12 -46,18 Z" fill="#e8c76a"/><path d="M55,2 C72,-8 88,14 82,24 C74,10 58,12 46,18 Z" fill="#e8c76a"/><circle cx="0" cy="-38" r="22" fill="#c9a84c"/><path d="M10,-38 L30,-28 L16,-44 Z" fill="#e8c76a"/><circle cx="-4" cy="-40" r="5" fill="#0b1628"/><circle cx="-4" cy="-40" r="2" fill="#e8c76a"/><rect x="-38" y="44" width="14" height="32" rx="2" fill="#e8c76a" opacity=".9"/><rect x="-18" y="30" width="14" height="46" rx="2" fill="#e8c76a"/><rect x="4" y="20" width="14" height="56" rx="2" fill="#f5e199"/><rect x="24" y="8" width="14" height="68" rx="2" fill="#f5e199"/></g></svg>
+    <h1>EAGLE ONLINE<br>TRADING ACADEMY</h1>
+    <p class="hero-tagline">Master the Markets, Soar to Financial Freedom</p>
+    <div class="hero-divider"></div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">2+</div><div class="stat-label">Market Segments</div></div>
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Course Modules</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Practical Focus</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Lifetime Mentorship</div></div>
+    </div>
+    <div class="hero-btns">
+      <a href="#apply" class="btn-primary">APPLY NOW</a>
+      <a href="#courses" class="btn-outline">VIEW COURSES</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="reveal">
+      <p class="section-label">Who We Are</p>
+      <div class="gold-line"></div>
+      <h2 class="section-title">A Premier Institute for<br><span>Financial Market</span> Mastery</h2>
+      <p class="section-desc">Eagle Online Trading Academy is a premier institute offering online training in financial markets. Our mission is to empower aspiring traders with real-time strategies and practical knowledge.</p>
+      <div class="about-features">
+        <div class="feat-card"><div style="font-size:24px">🎓</div><h4>Certified Experts</h4><p>Learn from certified market professionals with proven track records.</p></div>
+        <div class="feat-card"><div style="font-size:24px">📊</div><h4>Live Sessions</h4><p>Real-time market analysis and trading sessions every trading day.</p></div>
+        <div class="feat-card"><div style="font-size:24px">🤝</div><h4>Lifetime Mentorship</h4><p>Get lifetime guidance from our expert trading mentors.</p></div>
+        <div class="feat-card"><div style="font-size:24px">🌐</div><h4>Bilingual Support</h4><p>Training available in multiple languages for your comfort.</p></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="about-card">
+        <h3 class="about-card-title">Why Traders Choose Us</h3>
+        <ul class="about-list">
+          <li><span class="check">✦</span>Structured curriculum from basics to advanced</li>
+          <li><span class="check">✦</span>Indian Markets & Forex — complete coverage</li>
+          <li><span class="check">✦</span>Practical live trading with real capital insights</li>
+          <li><span class="check">✦</span>Risk management & trading psychology focus</li>
+          <li><span class="check">✦</span>Daily market updates and community access</li>
+          <li><span class="check">✦</span>Learn at your own pace — fully online</li>
+        </ul>
+        <div class="contact-strip">
+          <p>Speak with our advisor</p>
+          <h3>9036540855</h3>
+          <span>CHETHAN G (RC) — Lead Mentor</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <p class="section-label">What You'll Learn</p>
+      <div class="gold-line" style="margin:0 auto 16px"></div>
+      <h2 class="section-title">Our <span>Course</span> Curriculum</h2>
+      <p class="section-desc" style="margin:0 auto">Comprehensive training covering both Indian equity markets and global forex markets.</p>
+    </div>
+    <div class="courses-grid">
+      <div class="course-card reveal">
+        <div class="course-card-header"><div class="course-tag">Module 1</div><h3>Indian Markets</h3></div>
+        <ul class="course-list">
+          <li><span class="tick">✓</span>Basics of stock market</li>
+          <li><span class="tick">✓</span>Basics of price action</li>
+          <li><span class="tick">✓</span>Eagle Strategy — Part 1</li>
+          <li><span class="tick">✓</span>Eagle Strategy — Part 2</li>
+          <li><span class="tick">✓</span>Eagle Strategy — Part 3</li>
+          <li><span class="tick">✓</span>Practical section</li>
+          <li><span class="tick">✓</span>Trading indicators</li>
+          <li><span class="tick">✓</span>Options trading — Part 1</li>
+        </ul>
+      </div>
+      <div class="course-card reveal">
+        <div class="course-card-header"><div class="course-tag">Module 2</div><h3>Forex Market</h3></div>
+        <ul class="course-list">
+          <li><span class="tick">✓</span>Introduction to forex</li>
+          <li><span class="tick">✓</span>Concepts of forex</li>
+          <li><span class="tick">✓</span>Crypto trading</li>
+          <li><span class="tick">✓</span>Gold & Silver trading</li>
+          <li><span class="tick">✓</span>Forex pairs trading</li>
+          <li><span class="tick">✓</span>Practical live trading</li>
+          <li><span class="tick">✓</span>Risk management</li>
+          <li><span class="tick">✓</span>Trading psychology</li>
+        </ul>
+      </div>
+      <div class="course-card reveal" style="grid-column:1/-1;background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(201,168,76,0.02))">
+        <div class="course-card-header" style="border-bottom:1px solid var(--border)">
+          <div class="course-tag" style="background:var(--gold2)">Bonus Included</div>
+          <h3>Learn to Trade Smartly with Confidence</h3>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+          <div style="padding:20px 28px;border-right:1px solid var(--border);display:flex;gap:10px"><span class="tick">✓</span><span style="font-size:13px;color:var(--muted)">Live Market Practice</span></div>
+          <div style="padding:20px 28px;border-right:1px solid var(--border);display:flex;gap:10px"><span class="tick">✓</span><span style="font-size:13px;color:var(--muted)">Trading Psychology Training</span></div>
+          <div style="padding:20px 28px;border-right:1px solid var(--border);display:flex;gap:10px"><span class="tick">✓</span><span style="font-size:13px;color:var(--muted)">Community Access</span></div>
+          <div style="padding:20px 28px;display:flex;gap:10px"><span class="tick">✓</span><span style="font-size:13px;color:var(--muted)">Daily Market Updates</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits" id="benefits">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <p class="section-label">What You'll Get</p>
+      <div class="gold-line" style="margin:0 auto 16px"></div>
+      <h2 class="section-title">Everything You Need to<br><span>Trade with Confidence</span></h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card reveal"><div class="benefit-icon">📈</div><h4>Live Market Practice</h4><p>Trade alongside mentors in real market conditions.</p></div>
+      <div class="benefit-card reveal"><div class="benefit-icon">🧠</div><h4>Trading Psychology</h4><p>Master the mental discipline for consistent profitability.</p></div>
+      <div class="benefit-card reveal"><div class="benefit-icon">👥</div><h4>Community Access</h4><p>Join our private community of active traders.</p></div>
+      <div class="benefit-card reveal"><div class="benefit-icon">📰</div><h4>Daily Market Updates</h4><p>Expert analysis and trade setups every morning.</p></div>
+      <div class="benefit-card reveal"><div class="benefit-icon">🛡️</div><h4>Risk Management</h4><p>Protect your capital with professional-grade controls.</p></div>
+      <div class="benefit-card reveal"><div class="benefit-icon">🏅</div><h4>Certified Learning</h4><p>Curriculum designed by certified market professionals.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPLY FORM -->
+<section id="apply">
+  <div class="apply">
+    <div style="margin-bottom:48px" class="reveal">
+      <p class="section-label">Start Your Journey</p>
+      <div class="gold-line" style="margin:0 auto 16px"></div>
+      <h2 class="section-title">Apply for <span>Enrollment</span></h2>
+      <p class="section-desc" style="margin:0 auto">Our team will contact you within 24 hours to guide you through the enrollment process.</p>
+    </div>
+
+    <div class="apply-form reveal">
+
+      <!-- SUCCESS VIEW (hidden by default) -->
+      <div class="success-view" id="successView">
+        <div class="success-icon">✦</div>
+        <h3>Application Submitted!</h3>
+        <p>Thank you for applying to Eagle Online Trading Academy.<br>Our advisor Chethan G will reach you within 24 hours.</p>
+        <a class="call-link" href="tel:9036540855">📞 9036540855</a>
+        <br><br>
+        <a id="waBtn" href="#" onclick="sendViaWhatsApp(); return false;" style="display:inline-block;background:#25D366;color:#fff;padding:16px 36px;border-radius:50px;font-weight:800;font-size:17px;text-decoration:none;margin-top:10px;box-shadow:0 0 20px #25D36688;letter-spacing:1px;border:2px solid #1ebe5d;">💬 Send My Details via WhatsApp</a>
+        <p style="font-size:12px;color:#aaa;margin-top:8px;">Click above to send your details directly to Chethan G on WhatsApp</p>
+      </div>
+
+      <!-- FORM VIEW -->
+      <div id="formView">
+        <div class="form-row">
+          <div class="form-group"><label>Full Name *</label><input type="text" id="f-name" placeholder="Your full name"></div>
+          <div class="form-group"><label>Phone Number *</label><input type="tel" id="f-phone" placeholder="Your WhatsApp number"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Email Address *</label><input type="email" id="f-email" placeholder="your@email.com"></div>
+          <div class="form-group"><label>City / Location</label><input type="text" id="f-city" placeholder="Your city"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Trading Experience</label>
+            <select id="f-exp">
+              <option value="">Select your level</option>
+              <option>Complete Beginner — No experience</option>
+              <option>Beginner — Some basic knowledge</option>
+              <option>Intermediate — Traded before</option>
+              <option>Advanced — Looking to upskill</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Course Interest</label>
+            <select id="f-course">
+              <option value="">Select course</option>
+              <option>Indian Markets Module</option>
+              <option>Forex Market Module</option>
+              <option>Both Modules (Full Course)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full"><label>Message / Questions (Optional)</label><textarea id="f-msg" placeholder="Any specific questions or goals..."></textarea></div>
+        </div>
+        <button class="form-submit" id="submitBtn" onclick="handleSubmit()">SUBMIT APPLICATION →</button>
+        <div class="notify-box" id="notifyBox"></div>
+        <p class="form-note">By submitting, you agree to be contacted by Eagle Online Trading Academy. No spam, ever.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">
+          <svg width="40" height="40" viewBox="0 0 80 80"><g transform="translate(40,40)"><ellipse cx="0" cy="8" rx="12" ry="16" fill="#c9a84c"/><path d="M0,2 C-12,-8 -32,-4 -36,8 C-28,4 -16,6 0,12 Z" fill="#c9a84c"/><path d="M0,2 C12,-8 32,-4 36,8 C28,4 16,6 0,12 Z" fill="#c9a84c"/><circle cx="0" cy="-16" r="9" fill="#c9a84c"/><path d="M4,-16 L11,-12 L6,-20 Z" fill="#e8c76a"/><rect x="-16" y="20" width="6" height="12" rx="1" fill="#e8c76a" opacity=".9"/><rect x="-8" y="14" width="6" height="18" rx="1" fill="#e8c76a"/><rect x="2" y="8" width="6" height="24" rx="1" fill="#f5e199"/><rect x="10" y="2" width="6" height="30" rx="1" fill="#f5e199"/></g></svg>
+          <div class="footer-brand-name">EAGLE ONLINE<br>TRADING ACADEMY</div>
+        </div>
+        <p class="footer-desc">Empowering aspiring traders with real-time strategies and practical knowledge to achieve financial freedom through the markets.</p>
+        <div class="footer-contact">
+          <a href="tel:9036540855">📞 9036540855</a>
+          <p>Chethan G (RC) — Lead Mentor & Founder</p>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Indian Markets</h5>
+        <ul><li>Stock Market Basics</li><li>Price Action</li><li>Eagle Strategy 1,2,3</li><li>Trading Indicators</li><li>Options Trading</li></ul>
+      </div>
+      <div class="footer-col">
+        <h5>Forex Markets</h5>
+        <ul><li>Forex Introduction</li><li>Crypto Trading</li><li>Gold & Silver</li><li>Forex Pairs</li><li>Risk Management</li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Eagle Online Trading Academy. All rights reserved.</p>
+      <span>Master the Markets · Soar to Financial Freedom</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+  document.querySelectorAll('.about-features,.courses-grid,.benefits-grid').forEach(g => {
+    Array.from(g.children).forEach((c,i) => c.style.transitionDelay = (i*0.1)+'s');
+  });
+
+  // Store form data globally for WhatsApp button
+  let formData = {};
+
+  function sendViaWhatsApp() {
+    const msg = `NEW ENROLLMENT - Eagle Online Trading Academy
+
+Name: ${formData.name}
+Phone: ${formData.phone}
+Email: ${formData.email}
+City: ${formData.city || 'Not provided'}
+Experience: ${formData.exp || 'Not selected'}
+Course: ${formData.course || 'Not selected'}
+Message: ${formData.msg || 'None'}
+
+I am interested in joining Eagle Online Trading Academy. Please contact me.`;
+
+    const waUrl = 'https://wa.me/919036540855?text=' + encodeURIComponent(msg);
+    window.open(waUrl, '_blank');
+  }
+
+  async function handleSubmit() {
+    const name   = document.getElementById('f-name').value.trim();
+    const phone  = document.getElementById('f-phone').value.trim();
+    const email  = document.getElementById('f-email').value.trim();
+    const city   = document.getElementById('f-city').value.trim();
+    const exp    = document.getElementById('f-exp').value;
+    const course = document.getElementById('f-course').value;
+    const msg    = document.getElementById('f-msg').value.trim();
+
+    if (!name || !phone || !email) {
+      alert('Please fill in Name, Phone, and Email to apply.');
+      return;
+    }
+
+    // Save for WhatsApp button
+    formData = { name, phone, email, city, exp, course, msg };
+
+    const btn = document.getElementById('submitBtn');
+    const box = document.getElementById('notifyBox');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    box.className = 'notify-box sending';
+    box.textContent = '📧 Sending your application...';
+
+    // Send Telegram notification
+    try {
+      const telegramMsg = `NEW ENROLLMENT - Eagle Online Trading Academy
+
+Name: ${name}
+Phone: ${phone}
+Email: ${email}
+City: ${city || 'Not provided'}
+Experience: ${exp || 'Not selected'}
+Course: ${course || 'Not selected'}
+Message: ${msg || 'None'}`;
+
+      await fetch(`https://api.telegram.org/bot8791288911:AAFq_d45gXyu_nGQbgrMePUjqqRf4R4RHtg/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: '7011534331',
+          text: telegramMsg
+        })
+      });
+    } catch(e) {
+      console.warn('Telegram notification failed:', e);
+    }
+
+    try {
+      const response = await fetch('https://formspree.io/f/xeoqbwgv', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          Name: name,
+          Phone: phone,
+          Email: email,
+          City: city || 'Not provided',
+          Experience: exp || 'Not selected',
+          Course: course || 'Not selected',
+          Message: msg || 'None',
+          _subject: '🦅 New Enrollment - Eagle Online Trading Academy'
+        })
+      });
+
+      if (response.ok) {
+        box.className = 'notify-box success';
+        box.textContent = '✅ Application sent! Chethan G will contact you soon.';
+      } else {
+        box.className = 'notify-box error';
+        box.textContent = '⚠️ Could not send. Please try again.';
+      }
+    } catch(e) {
+      box.className = 'notify-box error';
+      box.textContent = '⚠️ Network error. Please try again.';
+    }
+
+    // Always show success screen to applicant after 2s
+    setTimeout(() => {
+      document.getElementById('formView').style.display = 'none';
+      document.getElementById('successView').style.display = 'block';
+    }, 2000);
+  }
+</script>
+</body>
+</html>
