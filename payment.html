@@ -14,7 +14,7 @@
 <section class="card"><div class="eyebrow">Course enrollment payment</div><h1 class="h">Complete Your Payment</h1><p class="desc">Choose your course and pay its fixed fee using your UPI app.</p>
 <label class="label" for="course">Course / enrollment</label><select id="course"><option value="indian" data-amount="4999.00">Indian Market — ₹4,999</option><option value="forex" data-amount="4999.00">Forex Market — ₹4,999</option><option value="both" data-amount="5999.00">Both — ₹5,999</option></select>
 <div class="label">Fixed amount</div><div class="offerprice"><strong class="newprice" id="amount">₹4,999</strong></div>
-<div class="label">Pay to UPI ID</div><div class="upi" id="vpa">dacchumadhu17@ybl</div>
+<div class="label">Pay to UPI ID</div><div class="upi" id="vpa">9036540855-3@ybl</div>
 <div class="qrbox"><img id="qr" alt="UPI QR code"><div class="qr-caption">Scan with any UPI app</div></div>
 <a class="btn gold" id="pay" href="#">Open UPI App &amp; Pay</a><p class="note" id="intentHelp" hidden>If no UPI app opens, scan the QR code with another phone, or copy the UPI ID and enter the selected amount in your UPI app.</p><button class="btn outline" id="copy" type="button">Copy UPI ID</button>
 <p class="note">After completing payment in your UPI app, return here and submit the UTR / transaction reference below. Payment is not verified automatically by this page.</p>
@@ -25,7 +25,7 @@
 <button class="btn gold" id="submit" type="button">Send details to academy on WhatsApp</button><div class="successhint" id="hint">WhatsApp will open with your details filled in. Please send the message to the academy.</div>
 </section><p class="small">For assistance, contact the academy at 9036540855.</p></main>
 <script>
-const VPA='dacchumadhu17@ybl'; const PAYEE='Eagle Online Trading Academy'; const PHONE='919036540855';
+const VPA='9036540855-3@ybl'; const PAYEE='Eagle Online Trading Academy'; const PHONE='919036540855';
 const course=document.getElementById('course'), amountDisplay=document.getElementById('amount'), qr=document.getElementById('qr'), pay=document.getElementById('pay');
 function refreshPayment(){const selected=course.options[course.selectedIndex], amount=selected.dataset.amount, courseName=selected.text.split(' — ')[0];const upi='upi://pay?pa='+encodeURIComponent(VPA)+'&pn='+encodeURIComponent(PAYEE)+'&am='+amount+'&cu=INR&tn='+encodeURIComponent('Eagle Academy '+courseName);const formattedAmount='₹'+Number(amount).toLocaleString('en-IN');amountDisplay.textContent=formattedAmount;pay.textContent='Pay '+formattedAmount+' with UPI';pay.href=upi;qr.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(upi);}
 course.addEventListener('change',refreshPayment);refreshPayment();const intentHelp=document.getElementById('intentHelp');pay.addEventListener('click',()=>{setTimeout(()=>{if(document.visibilityState==='visible')intentHelp.hidden=false;},1200);});
