@@ -13,7 +13,7 @@
 <div class="brand"><div class="logo">🦅</div><div class="brandtext">EAGLE ONLINE<br>TRADING ACADEMY</div></div>
 <section class="card"><div class="eyebrow">Limited-time enrollment offer</div><h1 class="h">Complete Your Payment</h1><p class="desc">The actual fee is ₹10,000. Enroll now for the limited-time offer price.</p>
 <div class="offerprice"><span class="oldprice">Actual fee ₹10,000</span><strong class="newprice">₹5,999</strong><span class="offertag">Limited-time offer</span></div>
-<div class="label">Pay to UPI ID</div><div class="upi" id="vpa">9036540855-3@ybl</div>
+<div class="label">Pay to UPI ID</div><div class="upi" id="vpa">eagleguy@ibl</div>
 <div class="qrbox"><img id="qr" alt="UPI QR code"><div class="qr-caption">Scan with PhonePe or another UPI app</div></div>
 <a class="btn gold" id="pay" href="#">Open UPI App &amp; Pay</a><p class="note" id="intentHelp" hidden>If the app does not open, use the QR code with another phone or open this page on an Android phone with a UPI app.</p><button class="btn outline" id="copy" type="button">Copy UPI ID</button>
 <p class="note">After completing payment in your UPI app, return here and submit the UTR / transaction reference below. Payment is not verified automatically by this page.</p>
@@ -24,7 +24,7 @@
 <button class="btn gold" id="submit" type="button">Send details to academy on WhatsApp</button><div class="successhint" id="hint">WhatsApp will open with your details filled in. Please send the message to the academy.</div>
 </section><p class="small">For assistance, contact the academy at 9036540855.</p></main>
 <script>
-const VPA='9036540855-3@ybl'; const PAYEE='Eagle Online Trading Academy'; const PHONE='919036540855'; const AMOUNT='5999.00';
+const VPA='eagleguy@ibl'; const PAYEE='Eagle Online Trading Academy'; const PHONE='919036540855'; const AMOUNT='5999.00';
 const qr=document.getElementById('qr'), pay=document.getElementById('pay');
 const upi='upi://pay?pa='+encodeURIComponent(VPA)+'&pn='+encodeURIComponent(PAYEE)+'&am='+AMOUNT+'&cu=INR&tn='+encodeURIComponent('Eagle Academy enrollment offer');
 pay.href=upi; qr.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(upi); const intentHelp=document.getElementById('intentHelp'); if(!/Android/i.test(navigator.userAgent)){pay.addEventListener('click',event=>{event.preventDefault();intentHelp.hidden=false;});}else{pay.addEventListener('click',()=>{setTimeout(()=>{if(document.visibilityState==='visible')intentHelp.hidden=false;},1200);});}
